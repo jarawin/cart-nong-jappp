@@ -1,5 +1,5 @@
 import sheetdb from 'sheetdb-node';
-const client = sheetdb({ address: 'zhx6pde6mybzk' });
+const client = sheetdb({ address: 'm1wzd0b9sraou' });
 
 const getDataById = async (cid = "LU08d776c3a8144668a40caec4ee6599ca-U809ebc60c8b4a9fd8518ec029ab35ef5") => {
     try {
@@ -12,22 +12,32 @@ const getDataById = async (cid = "LU08d776c3a8144668a40caec4ee6599ca-U809ebc60c8
     }
 }
 
-const amountCart = async (cid, product, amount = 1) => {
+const amountCart = async (cid, product, amount, row) => {
     let sheetname = encodeURIComponent("ออเดอร์")
     let columnIdOrder = encodeURIComponent("รหัสออเดอร์")
 
     try {
-        console.log("change to ", `${cid}${product}`);
-        const res = await client.update(columnIdOrder, `${cid}${product}`, { "ปริมาณ": amount }, sheetname)
-        console.log(res);
-        return res
+        await delRow(cid, product)
+        row['ปริมาณ'] = amount
+        await addRow(row)
 
     } catch (error) {
         console.log(error);
     }
 }
 
-amountCart("LUb1fbe48dd94071be47fdd24d361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5", "Sodium bicarbonate", 1)
+// amountCart("LUb1fbe48dd94071be47fdd24d361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5", "Sodium bicarbonate", 1)
+
+const addRow = async (data) => {
+    let sheetname = encodeURIComponent("ออเดอร์")
+    console.log("add data");
+
+    client.create(data, sheetname).then(function (res) {
+        console.log(res);
+    }, function (err) {
+        console.log(err);
+    });
+}
 
 const delRow = async (cid, product) => {
     let sheetname = encodeURIComponent("ออเดอร์")
@@ -53,21 +63,22 @@ const getAmount = async (cid, product) => {
         console.log("find to ", `${cid}${product}`);
         const data = await client.read({ sheet: sheetname, search: { [columnIdOrder]: `${cid}${product}` } })
         console.log(JSON.parse(data));
-        return parseInt(JSON.parse(data)[0]['ปริมาณ'])
+        return JSON.parse(data)[0]
     } catch (error) {
         console.log(error);
     }
 }
 
 const changeCart = async (amount, product, custid) => {
-    const am = await getAmount(custid, product)
+    const row = await getAmount(custid, product)
+    const am = parseInt(row['ปริมาณ'])
     console.log("ปริมาณ = ", am);
 
     if (amount < 0 && am == 1) {
         const res = await delRow(custid, product)
         console.log("delRow", res);
     } else {
-        const res = await amountCart(custid, product, am + amount)
+        const res = await amountCart(custid, product, am + amount, row)
         console.log("amountCart", res);
     }
 }
