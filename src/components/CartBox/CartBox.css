@@ -1,0 +1,39 @@
+.admin-img-box {
+  width: 30%;
+  height: 100%;
+  margin: 0 1rem 0 0;
+}
+.admin-name-box {
+  width: 70%;
+  height: 100%;
+}
+.admin-box {
+  display: flex;
+}
+
+.admin-font {
+  font-size: 2rem;
+}
+
+.admin-status {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #aaaaaa;
+}
+
+.admin-main-box {
+  background: #ffffff;
+
+  -webkit-box-shadow: 1px 5px 10px 1px #cccccc;
+  -moz-box-shadow: 1px 5px 10px 1px #cccccc;
+  -o-box-shadow: 1px 5px 10px 1px #cccccc;
+  -ms-box-shadow: 1px 5px 10px 1px #cccccc;
+  box-shadow: 1px 5px 10px 1px #cccccc;
+
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+}
+
+.cart-main-box {
+  margin-bottom: 5rem;
+}

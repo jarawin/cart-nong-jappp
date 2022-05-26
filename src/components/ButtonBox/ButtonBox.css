@@ -1,0 +1,16 @@
+.btn-main-box {
+  background: #ffffff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+.cart-btn {
+  width: 50%;
+  color: black;
+  height: 3rem;
+  margin-top: 1rem;
+  border: #aaa;
+  border-radius: 2rem;
+}
