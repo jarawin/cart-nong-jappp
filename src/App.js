@@ -12,8 +12,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(async () => {
-    // const profile = await login();
-    // setProfile(profile);
+    const profile = await login();
+    console.log(profile);
+    setProfile(profile);
     setIsLoading(false);
   }, []);
 
