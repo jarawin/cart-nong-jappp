@@ -53,7 +53,7 @@ const CartBox = (props) => {
                                     <h1 className="admin-font">{item['ชื่อสินค้า']}</h1>
                                     <div className="admin-status ">x {" " + data[index]['ปริมาณ']}</div>
                                     <div className="">ราคา {item['ราคา']}  บาท</div>
-                                    <div className="">น้ำหนัก {item['น้ำหนัก']} </div>
+                                    <div className="">น้ำหนัก {item['น้ำหนัก']} กก. </div>
 
                                     <div className="btn-group " role="group" aria-label="Basic example">
                                         <button onClick={e => { dec(item, index); }} type="button" className="btn btn-primary">-</button>
