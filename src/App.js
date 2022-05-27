@@ -17,13 +17,8 @@ function App() {
   useEffect(async () => {
     login();
 
-    setTimeout(() => {
-      const queryParams = new URLSearchParams(window.location.search)
-      const uid = queryParams.get("userid")
-      setUserId(uid)
-    }, 1500)
-
-
+    var uid = new URLSearchParams(window.location.search).get("userid")
+    setUserId(uid)
 
     if (!uid) {
       setTextLoading("please provide a userid")
