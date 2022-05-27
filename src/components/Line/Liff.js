@@ -1,12 +1,18 @@
 import liff from '@line/liff';
+const liffId = '1657165612-5NDV6eZ0'
 
-const logout = () => {
-    liff.logout();
-    liff.closeWindow();
-    window.location.reload();
+const logout = async () => {
+    await liff.init({ liffId: liffId })
+
+    if (liff.isLoggedIn()) {
+        liff.logout();
+        liff.closeWindow();
+    } else {
+        window.close();
+    }
 }
 
-const login = async (liffId = '1657165612-5NDV6eZ0') => {
+const login = async () => {
     await liff.init({ liffId: liffId })
 
     if (liff.isLoggedIn()) {

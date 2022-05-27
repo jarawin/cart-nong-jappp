@@ -1,47 +1,74 @@
 import { useEffect, useState } from "react";
 import "./CartBox.css"
 import { getDataById, changeCart } from "../data/Cart";
+import { logout } from "../Line/Liff"
 
 const CartBox = (props) => {
-    const [data, setData] = useState([]);
-    const queryParams = new URLSearchParams(window.location.search)
-    const userid = queryParams.get("userid") ?? "LUb1fbe48dd94071be47fdd24d361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5"
-    //props?.profil361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5"
+    const [isIncDisabled, setIsIncDisabled] = useState(false);
+    const [isDecDisabled, setIsDecDisabled] = useState(false);
 
-    const inc = (e, index) => {
-        console.log("e.target['ชื่อสินค้า'] == ", e['ชื่อสินค้า']);
-        console.log("userid == ", userid);
-        changeCart(1, e['ชื่อสินค้า'], userid)
-        setData(data.map((item, i) => {
-            if (i === index) {
-                item['ปริมาณ'] = parseInt(item['ปริมาณ']) + 1
-            }
-            return item
-        }))
+    const inc = async (i, index, e) => {
+        setIsIncDisabled(true);
+        e.target.blur();
+
+        const res = await changeCart(1, i['ชื่อสินค้า'], props?.userid)
+        if (!res) {
+            alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง")
+        } else {
+            setIsIncDisabled(false);
+
+            props?.setData(props?.data?.map((item, i) => {
+                if (i === index) {
+                    item['ปริมาณ'] = parseInt(item['ปริมาณ']) + 1
+                }
+                return item
+            }))
+        }
     }
 
-    const dec = (e, index) => {
-        changeCart(-1, e['ชื่อสินค้า'], userid)
-        setData(data.map((item, i) => {
-            if (i === index) {
-                item['ปริมาณ'] = parseInt(item['ปริมาณ']) - 1
-            }
-            return item
-        }))
+
+
+    const dec = async (i, index, e) => {
+        setIsDecDisabled(true)
+        e.target.blur();
+
+        const res = await changeCart(-1, i['ชื่อสินค้า'], props?.userid)
+        if (res === "deleted") {
+            setIsDecDisabled(false)
+        }
+        if (!res) {
+            alert("โปรดลองอีกครั้ง")
+        } else {
+            setIsDecDisabled(false)
+
+            props?.setData(props?.data?.map((item, i) => {
+                if (i === index) {
+                    item['ปริมาณ'] = parseInt(item['ปริมาณ']) - 1
+                }
+                return item
+            }))
+        }
+
     }
 
-    useEffect(async () => {
-        const res = await getDataById(userid);
-        setData(res);
-    }, []);
-
-
+    const handleDisabledBtn = (name) => {
+        if (name === "inc") {
+            if (isIncDisabled) {
+                return "disabled"
+            }
+        } else {
+            if (isDecDisabled) {
+                return "disabled"
+            }
+        }
+        return ""
+    }
 
 
     return (
         <div className="cart-main-box">
             {
-                data.map((item, index) => {
+                props?.data?.map((item, index) => {
                     return (
                         <div className="admin-main-box clearfix rounded " key={index}>
                             <div className="admin-box" >
@@ -50,13 +77,13 @@ const CartBox = (props) => {
                                 </div>
                                 <div className="admin-name-box ">
                                     <h1 className="admin-font">{item['ชื่อสินค้า']}</h1>
-                                    <div className="admin-status ">x {" " + data[index]['ปริมาณ']}</div>
+                                    <div className="admin-status ">x {" " + props?.data[index]['ปริมาณ']}</div>
                                     <div className="">ราคา {item['ราคา']}  บาท</div>
                                     <div className="">น้ำหนัก {item['น้ำหนัก']} กก. </div>
 
                                     <div className="btn-group " role="group" aria-label="Basic example">
-                                        <button onClick={e => { dec(item, index); }} type="button" className="btn btn-primary">-</button>
-                                        <button onClick={e => { inc(item, index); }} type="button" className="btn btn-primary">+</button>
+                                        <button disabled={isDecDisabled} id="dec" onClick={e => { dec(item, index, e); }} type="button" className={"btn btn-primary " + handleDisabledBtn("dec")}>-</button>
+                                        <button disabled={isIncDisabled} id="inc" onClick={e => { inc(item, index, e); }} type="button" className={"btn btn-primary " + handleDisabledBtn("inc")}>+</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,6 +93,8 @@ const CartBox = (props) => {
             }
         </div>
     )
+
+
 }
 
 export default CartBox;

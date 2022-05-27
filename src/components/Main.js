@@ -7,7 +7,7 @@ const Main = (props) => {
 
     return (
         <div className="container bootstrap snippets bootdeys">
-            <CartBox profile={props.profile} />
+            <CartBox userid={props?.userid} data={props?.data} setData={props?.setData} setIsLoading={props?.setIsLoading} setTextLoading={props?.setTextLoading} />
             <ButtonBox />
         </div >
     )

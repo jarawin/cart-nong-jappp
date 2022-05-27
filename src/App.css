@@ -183,7 +183,7 @@ i {
   border-left: 10px solid #c2c2c2;
 } */
 
-.btn {
+/* .btn {
   border: none;
   padding: 6px 12px;
   border-bottom: 4px solid;
@@ -192,7 +192,7 @@ i {
   transition: border-color 0.1s ease-in-out 0s,
     background-color 0.1s ease-in-out 0s;
   outline: none;
-}
+} */
 .btn-default,
 .wizard-cancel,
 .wizard-back {
@@ -235,7 +235,7 @@ i {
 .btn-link {
   border: none;
 }
-.btn-primary {
+/* .btn-primary {
   background-color: #3fcfbb;
   border-color: #2fb2a0;
 }
@@ -246,7 +246,12 @@ i {
 .open .dropdown-toggle.btn-primary {
   background-color: #38c2af;
   border-color: #2aa493;
-}
+} */
+
+/* .btn-primary[disabled="disabled"],
+.btn-primary:disabled {
+  background-color: #aaa;
+} */
 .btn-success {
   background-color: #8dc859;
   border-color: #77ab49;
@@ -282,8 +287,6 @@ i {
   border-color: #bd9804;
 }
 
-.icon-box {
-}
 .icon-box .btn {
   border: 1px solid #e1e1e1;
   margin-left: 3px;
