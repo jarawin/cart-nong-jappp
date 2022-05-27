@@ -15,17 +15,18 @@ function App() {
   const [userid, setUserId] = useState(null);
 
   useEffect(async () => {
-    const queryParams = new URLSearchParams(window.location.search)
-    const uid = queryParams.get("userid")
-    setUserId(uid)
-    // login();
+    login();
+
+    setTimeout(() => {
+      const queryParams = new URLSearchParams(window.location.search)
+      const uid = queryParams.get("userid")
+      setUserId(uid)
+    }, 1500)
+
+
 
     if (!uid) {
       setTextLoading("please provide a userid")
-      setTimeout(() => {
-        alert("now userid =", uid)
-        window.location.reload()
-      }, 1500)
     } else {
       const data = await getDataById(uid)
 
