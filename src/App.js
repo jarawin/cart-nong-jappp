@@ -14,9 +14,7 @@ function App() {
   const [textLoading, setTextLoading] = useState(null);
   const [userid, setUserId] = useState(null);
 
-  useEffect(async () => {
-    login();
-
+  const setFirstLoad = async () => {
     var uid = new URLSearchParams(window.location.search).get("userid")
     setUserId(uid)
 
@@ -40,10 +38,16 @@ function App() {
         setIsLoading(false)
       }
     }
+  }
+
+  useEffect(async () => {
+    await login();
+    await setFirstLoad();
   }, []);
 
+
   if (isLoading) {
-    return <Loader text={textLoading} />
+    return <Loader text={textLoading} setFirstLoad={setFirstLoad} />
   } else {
     return <Main data={data} setData={setData} userid={userid} setIsLoading={setIsLoading} setTextLoading={setTextLoading} />
   }

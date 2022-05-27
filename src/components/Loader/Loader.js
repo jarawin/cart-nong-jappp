@@ -1,6 +1,13 @@
 import "./Loader.css";
+import { useEffect } from "react";
 
 const Loading = (props) => {
+    useEffect(() => {
+        setTimeout(() => {
+            props?.setFirstLoad();
+        }, 5000);
+    }, [])
+
     return (
         <div>
             <div className="lds-ripple">
