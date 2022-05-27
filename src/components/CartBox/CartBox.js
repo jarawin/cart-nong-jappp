@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import "./CartBox.css"
-import { getDataById, changeCart } from "../data/Cart";
+import { changeCart } from "../data/Cart";
 import { logout } from "../Line/Liff"
 
 const CartBox = (props) => {
     const [isIncDisabled, setIsIncDisabled] = useState(false);
     const [isDecDisabled, setIsDecDisabled] = useState(false);
+    const [idxDisabled, setIdxDisabled] = useState([]);
 
     const inc = async (i, index, e) => {
         setIsIncDisabled(true);
+        setIdxDisabled([...idxDisabled, index])
         e.target.blur();
 
         const res = await changeCart(1, i['ชื่อสินค้า'], props?.userid)
@@ -16,6 +18,7 @@ const CartBox = (props) => {
             alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง")
         } else {
             setIsIncDisabled(false);
+            setIdxDisabled(idxDisabled.filter(item => item !== index))
 
             props?.setData(props?.data?.map((item, i) => {
                 if (i === index) {
@@ -30,16 +33,19 @@ const CartBox = (props) => {
 
     const dec = async (i, index, e) => {
         setIsDecDisabled(true)
+        setIdxDisabled([...idxDisabled, index])
         e.target.blur();
 
         const res = await changeCart(-1, i['ชื่อสินค้า'], props?.userid)
         if (res === "deleted") {
             setIsDecDisabled(false)
+            setIdxDisabled(idxDisabled.filter(item => item !== index))
         }
         if (!res) {
             alert("โปรดลองอีกครั้ง")
         } else {
             setIsDecDisabled(false)
+            setIdxDisabled(idxDisabled.filter(item => item !== index))
 
             props?.setData(props?.data?.map((item, i) => {
                 if (i === index) {
@@ -51,12 +57,12 @@ const CartBox = (props) => {
 
     }
 
-    const handleDisabledBtn = (name) => {
-        if (name === "inc") {
+    const handleDisabledBtn = (name, idx) => {
+        if (name === "inc" && idxDisabled.includes(idx)) {
             if (isIncDisabled) {
                 return "disabled"
             }
-        } else {
+        } else if (name === "dec" && idxDisabled.includes(idx)) {
             if (isDecDisabled) {
                 return "disabled"
             }
@@ -82,8 +88,22 @@ const CartBox = (props) => {
                                     <div className="">น้ำหนัก {item['น้ำหนัก']} กก. </div>
 
                                     <div className="btn-group " role="group" aria-label="Basic example">
-                                        <button disabled={isDecDisabled} id="dec" onClick={e => { dec(item, index, e); }} type="button" className={"btn btn-primary " + handleDisabledBtn("dec")}>-</button>
-                                        <button disabled={isIncDisabled} id="inc" onClick={e => { inc(item, index, e); }} type="button" className={"btn btn-primary " + handleDisabledBtn("inc")}>+</button>
+                                        <button
+                                            id="dec"
+                                            type="button"
+                                            onClick={e => { dec(item, index, e); }}
+                                            disabled={isDecDisabled && idxDisabled.includes(index)}
+                                            className={"btn btn-primary " + handleDisabledBtn("dec", index)}>
+                                            -
+                                        </button>
+                                        <button
+                                            id="inc"
+                                            type="button"
+                                            onClick={e => { inc(item, index, e); }}
+                                            disabled={isIncDisabled && idxDisabled.includes(index)}
+                                            className={"btn btn-primary " + handleDisabledBtn("inc", index)}>
+                                            +
+                                        </button>
                                     </div>
                                 </div>
                             </div>

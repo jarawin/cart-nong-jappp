@@ -18,13 +18,13 @@ function App() {
     const queryParams = new URLSearchParams(window.location.search)
     const uid = queryParams.get("userid")
     setUserId(uid)
-    login();
+    // login();
 
     if (!uid) {
       setTextLoading("please provide a userid")
     } else {
       const data = await getDataById(uid)
-      
+
       if (data?.error) {
         setTextLoading("qouta of sheetdb.io is limited")
         setTimeout(() => {

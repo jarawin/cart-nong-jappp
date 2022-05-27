@@ -24,13 +24,19 @@ const login = async () => {
     }
 }
 
-const sendMessage = (text) => {
-    liff.sendMessages([{
-        type: 'text',
-        text: text
-    }]).then(() => {
-        liff.closeWindow();
-    });
+const sendMessage = async (text) => {
+    await liff.init({ liffId: liffId })
+
+    if (liff.isInClient()) {
+        liff.sendMessages([{
+            type: 'text',
+            text: text
+        }]).then(() => {
+            liff.closeWindow();
+        });
+    } else {
+        alert("Please run this application in LINE!");
+    }
 }
 
 
