@@ -18,10 +18,14 @@ function App() {
     const queryParams = new URLSearchParams(window.location.search)
     const uid = queryParams.get("userid")
     setUserId(uid)
-    login();
+    // login();
 
     if (!uid) {
       setTextLoading("please provide a userid")
+      setTimeout(() => {
+        alert("now userid =", uid)
+        window.location.reload()
+      }, 1500)
     } else {
       const data = await getDataById(uid)
 

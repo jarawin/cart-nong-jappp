@@ -1,5 +1,5 @@
 .btn-main-box {
-  background: #02793f;
+  background: #fff;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -7,16 +7,16 @@
 }
 
 .cart-btn {
-  width: 45%;
+  width: 48%;
 
   height: 4rem;
 }
 .text-btn-bt {
-  color: #02793f;
+  color: #fff;
   margin-top: 1rem;
 }
 
 .box-btn-bt {
-  background-color: #bdd235;
-  margin: 2.5%;
+  background-color: #02793f;
+  margin: 1%;
 }
