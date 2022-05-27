@@ -82,36 +82,45 @@ const CartBox = (props) => {
                                     <img src="/TNKlogo.jpg" alt="" className="img-fluid rounded " />
                                 </div>
                                 <div className="admin-name-box ">
-                                    <h1 className="admin-font">{item['ชื่อสินค้า']}</h1>
-                                    <div className="admin-status ">x {" " + props?.data[index]['ปริมาณ']}</div>
-                                    <div className="">ราคา {item['ราคา']}  บาท</div>
-                                    <div className="">น้ำหนัก {item['น้ำหนัก']} กก. </div>
-
-                                    <div className="btn-group " role="group" aria-label="Basic example">
-                                        <button
-                                            id="dec"
-                                            type="button"
-                                            onClick={e => { dec(item, index, e); }}
-                                            disabled={isDecDisabled && idxDisabled.includes(index)}
-                                            className={"btn btn-primary " + handleDisabledBtn("dec", index)}>
-                                            -
-                                        </button>
-                                        <button
-                                            id="inc"
-                                            type="button"
-                                            onClick={e => { inc(item, index, e); }}
-                                            disabled={isIncDisabled && idxDisabled.includes(index)}
-                                            className={"btn btn-primary " + handleDisabledBtn("inc", index)}>
-                                            +
-                                        </button>
+                                    <h3 className="admin-font">
+                                        {item['ชื่อสินค้า']}
+                                        <span className="admin-status ">{" "}x {" " + props?.data[index]['ปริมาณ']}</span>
+                                    </h3>
+                                    <div className="row box-detail-btn">
+                                        <div className="col-4">
+                                            <div className="btn-group btn-g-s" role="group" aria-label="Basic example">
+                                                <button
+                                                    id="dec"
+                                                    type="button"
+                                                    onClick={e => { dec(item, index, e); }}
+                                                    disabled={isDecDisabled && idxDisabled.includes(index)}
+                                                    className={"btn btn-primary " + handleDisabledBtn("dec", index)}>
+                                                    -
+                                                </button>
+                                                <button
+                                                    hidefocus="true"
+                                                    id="inc"
+                                                    type="button"
+                                                    onClick={e => { inc(item, index, e); }}
+                                                    disabled={isIncDisabled && idxDisabled.includes(index)}
+                                                    className={"btn btn-primary " + handleDisabledBtn("inc", index)}>
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="col-8">
+                                            <div >● ราคา {item['ราคา']}  บาท</div>
+                                            <div >● น้ำหนัก {parseFloat(item['น้ำหนัก']).toFixed(2)} กก. </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     )
                 })
             }
-        </div>
+        </div >
     )
 
 

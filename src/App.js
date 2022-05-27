@@ -41,7 +41,7 @@ function App() {
   }
 
   useEffect(async () => {
-    await login();
+    // await login();
     await setFirstLoad();
   }, []);
 

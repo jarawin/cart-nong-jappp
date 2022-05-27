@@ -14,12 +14,6 @@ body {
   padding: 10px 0 10px 30px;
 } */
 
-h3 > span {
-  border-bottom: 2px solid #c2c2c2;
-  display: inline-block;
-  padding: 0 5px 5px;
-}
-
 /* USER PROFILE */
 /* #user-profile h2 {
   padding-right: 15px;
@@ -83,7 +77,7 @@ i {
 #user-profile .profile-details ul > li > i {
   padding-top: 2px;
 }
-#user-profile .profile-details ul > li > span {
+#user-profile .profile-details ul > li {
   color: #34d1be;
 }
 #user-profile .profile-header {
@@ -330,36 +324,7 @@ a:focus {
 .table thead > tr > th:first-child {
   padding-left: 20px;
 }
-.table thead > tr > th span {
-  border-bottom: 2px solid #c2c2c2;
-  display: inline-block;
-  padding: 0 5px;
-  padding-bottom: 5px;
-  font-weight: normal;
-}
-.table thead > tr > th > a span {
-  color: #344644;
-}
-.table thead > tr > th > a span:after {
-  content: "\f0dc";
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-  margin-left: 5px;
-  font-size: 0.75em;
-}
-.table thead > tr > th > a.asc span:after {
-  content: "\f0dd";
-}
-.table thead > tr > th > a.desc span:after {
-  content: "\f0de";
-}
-.table thead > tr > th > a:hover span {
-  text-decoration: none;
-  color: #2bb6a3;
-  border-color: #2bb6a3;
-}
+
 .table.table-hover tbody > tr > td {
   -webkit-transition: background-color 0.15s ease-in-out 0s;
   transition: background-color 0.15s ease-in-out 0s;
@@ -374,7 +339,7 @@ a:focus {
   font-weight: 400;
   font-size: 1.125em;
 }
-.table tbody tr td .first-line span {
+.table tbody tr td .first-line {
   font-size: 0.875em;
   color: #969696;
   font-weight: 300;
@@ -666,16 +631,7 @@ textarea.form-control {
   margin-left: 31px;
   animation: dots 2.8s infinite;
 }
-span.dott {
-  display: block;
-  float: left;
-  width: 16px;
-  height: 16px;
-  margin-left: 16px;
-  /* filter: blur(4px); */
-  background: #000;
-  border-radius: 50%;
-}
+
 @keyframes dot {
   50% {
     transform: translateX(96px);
@@ -746,4 +702,8 @@ hr {
 .btn-secondary:disabled {
   background-color: #aaa;
   border-color: #777;
+}
+.red {
+  color: red;
+  background-color: red;
 }
