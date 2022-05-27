@@ -1,11 +1,17 @@
 import "./Loader.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Loading = (props) => {
+    const [msec, setMsec] = useState(5000);
+
     useEffect(() => {
-        setTimeout(() => {
-            props?.setFirstLoad();
-        }, 5000);
+        const reset = () => {
+            setTimeout(() => {
+                props?.setFirstLoad();
+                setMsec(msec + 500)
+                reset()
+            }, msec);
+        }
     }, [])
 
     return (
