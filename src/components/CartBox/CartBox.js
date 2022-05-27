@@ -6,8 +6,7 @@ const CartBox = (props) => {
     const [data, setData] = useState([]);
     const queryParams = new URLSearchParams(window.location.search)
     const userid = queryParams.get("userid") ?? "LUb1fbe48dd94071be47fdd24d361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5"
-    //props?.profile?.userId ?? 
-    // const userid = "LUb1fbe48dd94071be47fdd24d361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5"
+    //props?.profil361b1271-U809ebc60c8b4a9fd8518ec029ab35ef5"
 
     const inc = (e, index) => {
         console.log("e.target['ชื่อสินค้า'] == ", e['ชื่อสินค้า']);

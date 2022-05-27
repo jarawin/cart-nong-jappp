@@ -13,7 +13,6 @@ function App() {
 
   useEffect(async () => {
     const profile = await login();
-    console.log(profile);
     setProfile(profile);
     setIsLoading(false);
   }, []);
