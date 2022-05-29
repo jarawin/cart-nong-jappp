@@ -3,7 +3,7 @@ import "./ButtonBox.css"
 import { sendMessage } from "../Line/Liff";
 
 const ButtonBox = (props) => {
-    const sendMsgConfirm = () => { sendMessage("ยืนยันออเดอร์") }
+    const sendMsgConfirm = () => { sendMessage("เช็คตะกร้า") }
     const sendMsgShowAll = () => { sendMessage("ดูหมวดหมู่") }
 
     return (
