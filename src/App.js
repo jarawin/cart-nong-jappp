@@ -10,7 +10,7 @@ import { getDataById } from './components/data/Cart'
 
 function App() {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [textLoading, setTextLoading] = useState(null);
   const [userid, setUserId] = useState(null);
 
@@ -19,21 +19,28 @@ function App() {
     setUserId(uid)
 
     if (!uid) {
+
+      setIsLoading(true)
       setTextLoading("please provide a userid")
     } else {
       const data = await getDataById(uid)
-
       if (data?.error) {
+
+        setIsLoading(true)
         setTextLoading("qouta of sheetdb.io is limited")
         setTimeout(() => {
           logout()
         }, 1500)
       } else if (data.length == 0) {
+
+        setIsLoading(true)
         setTextLoading("ตะกร้าสินค้าว่างเปล่า")
         setTimeout(() => {
           logout()
         }, 1500)
       } else {
+
+        setIsLoading(false)
         setData(data)
         setIsLoading(false)
       }
@@ -41,7 +48,7 @@ function App() {
   }
 
   useEffect(async () => {
-    await login();
+    // await login();
     await setFirstLoad();
   }, []);
 
