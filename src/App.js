@@ -2,27 +2,54 @@ import './App.css';
 import Main from './components/Main';
 
 
-import { login } from './components/Line/Liff';
+import { login, logout } from './components/Line/Liff';
 import React, { useEffect, useState } from 'react';
 import Loader from './components/Loader/Loader';
+import { getDataById } from './components/data/Cart'
 
 
 function App() {
-  const [profile, setProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [textLoading, setTextLoading] = useState(null);
+  const [userid, setUserId] = useState(null);
+
+  const setFirstLoad = async () => {
+    var uid = new URLSearchParams(window.location.search).get("userid")
+    setUserId(uid)
+
+    if (!uid) {
+      setTextLoading("please provide a userid")
+    } else {
+      const data = await getDataById(uid)
+
+      if (data?.error) {
+        setTextLoading("qouta of sheetdb.io is limited")
+        setTimeout(() => {
+          logout()
+        }, 1500)
+      } else if (data.length == 0) {
+        setTextLoading("ตะกร้าสินค้าว่างเปล่า")
+        setTimeout(() => {
+          logout()
+        }, 1500)
+      } else {
+        setData(data)
+        setIsLoading(false)
+      }
+    }
+  }
 
   useEffect(async () => {
-    const profile = await login();
-    console.log(profile);
-    setProfile(profile);
-    setIsLoading(false);
+    await login();
+    await setFirstLoad();
   }, []);
 
 
   if (isLoading) {
-    return <Loader />
+    return <Loader text={textLoading} setFirstLoad={setFirstLoad} />
   } else {
-    return <Main profile={profile} setIsLoading={setIsLoading} />
+    return <Main data={data} setData={setData} userid={userid} setIsLoading={setIsLoading} setTextLoading={setTextLoading} />
   }
 }
 

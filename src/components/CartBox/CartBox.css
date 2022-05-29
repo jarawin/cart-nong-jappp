@@ -11,9 +11,9 @@
   display: flex;
 }
 
-.admin-font {
+/* .admin-font {
   font-size: 2rem;
-}
+} */
 
 .admin-status {
   font-size: 1rem;
@@ -36,4 +36,23 @@
 
 .cart-main-box {
   margin-bottom: 5rem;
+}
+.box-detail-btn {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.btn-g-s {
+  margin-top: 5px;
+}
+.btn-primary {
+  background-color: #02793f;
+  border: 0;
+}
+.btn-primary:disabled {
+  background-color: #555;
+  border: 0;
+}
+.btn-primary:hover {
+  background-color: #02793f !important;
+  border: 0;
 }

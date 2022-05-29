@@ -22,7 +22,8 @@
 .text-load {
   text-align: center;
   color: #fff;
-  margin-top: 200px;
+  margin-top: -1.5rem;
+  color: #02793f;
 }
 @keyframes lds-ripple {
   0% {
